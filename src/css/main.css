@@ -1,0 +1,22 @@
+#wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+
+    height: 100%;
+    overflow: hidden;
+}
+
+#wrapper > div {
+    flex: 1;
+}
+
+#map {
+    background: aquamarine;
+}
+
+#charts {
+    background: brown;
+}
