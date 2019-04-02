@@ -7,5 +7,5 @@ Further documentation can be found at https://rawgit.com/techfort/LokiJS/master/
 
 
 
-###Basic project outline graphic
+### Basic project outline graphic
 ![outline](./outline.jpg)
