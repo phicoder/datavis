@@ -130,4 +130,8 @@ function loadGenderData(barrio){
 
     return [dict_male, dict_female]
 
+}
+
+
+
 
