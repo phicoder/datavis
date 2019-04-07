@@ -8,10 +8,9 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
         });
     });
 
-    console.log(data)
-
     // Initiate the chart
     Highcharts.mapChart('map', {
+
         chart: {
             map: geojson
         },
@@ -20,17 +19,23 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
             text: 'Population of Barcelona'
         },
 
-        mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
-            }
-        },
-
         colorAxis: {
             tickPixelInterval: 100,
             min: 0,
             max: 80
+        },
+
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function () {
+                            var births = loadBirthsData(this.N_Barri)
+                            var deaths = loadDeathData(this.N_Barri)
+                        }
+                    }
+                }
+            }
         },
 
         series: [{
@@ -54,7 +59,43 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
     });
 
-
 });
+
+function loadBirthsData(barrio){
+
+    var births = db.getCollection('births')
+    var res = births.find({ "Neighborhood Name": barrio })
+
+    dict = {}
+    n = res.length
+    for (i = 0; i<n; i++) {
+        year = res[i].Year
+        num = res[i].Number
+        if (year in dict) dict[year] += num
+        else dict[year] = num
+    }
+
+    return dict
+
+}
+
+function loadDeathsData(barrio){
+
+    var deaths = db.getCollection('deaths')
+    var res = births.find({ "Neighborhood Name": barrio })
+
+    dict = {}
+    n = res.length
+    for (i = 0; i<n; i++) {
+        year = res[i].Year
+        num = res[i].Number
+        if (year in dict) dict[year] += num
+        else dict[year] = num
+    }
+
+    return dict
+
+}
+
 
 
