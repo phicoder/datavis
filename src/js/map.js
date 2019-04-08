@@ -30,8 +30,10 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                 point: {
                     events: {
                         click: function () {
+                            console.log('i am here')
                             var births = loadBirthsData(this.N_Barri)
-                            var deaths = loadDeathData(this.N_Barri)
+                            var deaths = loadDeathsData(this.N_Barri)
+                            showBirthsDeathsChart(births, deaths)
                         }
                     }
                 }
@@ -82,7 +84,7 @@ function loadBirthsData(barrio){
 function loadDeathsData(barrio){
 
     var deaths = db.getCollection('deaths')
-    var res = births.find({ "Neighborhood Name": barrio })
+    var res = deaths.find({ "Neighborhood Name": barrio })
 
     dict = {}
     n = res.length
