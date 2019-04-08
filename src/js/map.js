@@ -30,10 +30,16 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                 point: {
                     events: {
                         click: function () {
-                            console.log('i am here')
                             var births = loadBirthsData(this.N_Barri)
                             var deaths = loadDeathsData(this.N_Barri)
                             showBirthsDeathsChart(births, deaths)
+
+                            var genderData = loadGenderData(this.N_Barri)
+                            var male = genderData[0]
+                            var female = genderData[1]
+                            // call function to load second chart with parameters male and female
+
+
                         }
                     }
                 }
@@ -98,6 +104,33 @@ function loadDeathsData(barrio){
     return dict
 
 }
+
+function loadGenderData(barrio){
+
+    var population = db.getCollection('population')
+    var res = population.find({ "Neighborhood Name": barrio })
+
+    dict_male = {}
+    dict_female = {}
+    n = res.length
+    for (i = 0; i<n; i++) {
+        year = res[i].Year
+        num = res[i].Number
+        gender = res[i].Gender
+
+        if (gender == 'Male') {
+            if (year in dict_male) dict_male[year] += num
+            else dict_male[year] = num
+        } else {
+            if (year in dict_female) dict_female[year] += num
+            else dict_female[year] = num
+        }
+    }
+
+    return [dict_male, dict_female]
+
+}
+
 
 
 
