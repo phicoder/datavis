@@ -4,7 +4,7 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
     $.each(geojson.features, function (index, feature) {
         data.push({
             "N_Barri": feature.properties['N_Barri'],
-            value: feature.properties['C_Barri']
+            value: feature.properties['Homes'] + feature.properties['Dones']
         });
     });
 
@@ -16,13 +16,15 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
         },
 
         title: {
-            text: 'Population of Barcelona'
+            text: 'Districts and Population'
+        },
+
+        subtitle: {
+            text: 'Choose one to see detailed information'
         },
 
         colorAxis: {
-            tickPixelInterval: 100,
-            min: 0,
-            max: 80
+            tickPixelInterval: 100
         },
 
         plotOptions: {
@@ -30,11 +32,16 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                 point: {
                     events: {
                         click: function () {
-                            var births = loadBirthsData(this.N_Barri)
-                            var deaths = loadDeathsData(this.N_Barri)
+
+                            let barrio = this.N_Barri
+
+                            $("#barrio_name").html(barrio)
+
+                            var births = loadBirthsData(barrio)
+                            var deaths = loadDeathsData(barrio)
                             showBirthsDeathsChart(births, deaths)
 
-                            var genderData = loadGenderData(this.N_Barri)
+                            var genderData = loadGenderData(barrio)
                             var male = genderData[0]
                             var female = genderData[1]
                             // call function to load second chart with parameters male and female
@@ -50,7 +57,7 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
             data: data,
             mapData: geojson,
             joinBy: 'N_Barri',
-            name: 'Random data',
+            name: 'Population',
             states: {
                 hover: {
                     color: '#a4edba',
