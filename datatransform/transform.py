@@ -6,8 +6,19 @@ def clean_header(raw_header):
     return raw_header.strip('"').replace(' ', '_').replace('.', '_').lower()
 
 
+def try_float(string):
+    try:
+        return float(string)
+    except ValueError:
+        return string
+
+
 def clean_element(element):
-    return element.strip('"')
+    clean_el = element.strip('"')
+    if clean_el.isdigit():
+        return int(clean_el)
+
+    return try_float(clean_el)
 
 
 def csv_to_js(csv):
