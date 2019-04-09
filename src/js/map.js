@@ -59,6 +59,7 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             showBirthsDeathsChart(births, deaths)
 
                             var migration = loadMigrationData(barrio)
+                            showMigrationData(migration)
                             //call function to load migration chart
 
 
