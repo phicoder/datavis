@@ -8,6 +8,9 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
         });
     });
 
+    var history_color = null
+    var history_disctrict = null
+
     // Initiate the chart
     Highcharts.mapChart('map', {
 
@@ -29,9 +32,23 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
         plotOptions: {
             series: {
+                marker:{
+                    states:{
+                        select:{
+                            fillColor:'#66ff00'
+                        }
+                    }
+                },
                 point: {
                     events: {
                         click: function () {
+
+                            this.setState("select")
+                            this.update({
+                                marker:{
+                                    fillColor:'#66ff00',
+                                }
+                            })
 
                             let barrio = this.N_Barri
 
@@ -45,7 +62,6 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             var male = genderData[0]
                             var female = genderData[1]
                             // call function to load second chart with parameters male and female
-
 
                         }
                     }
@@ -79,13 +95,13 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 function loadBirthsData(barrio){
 
     var births = db.getCollection('births')
-    var res = births.find({ "Neighborhood Name": barrio })
+    var res = births.find({ "neighborhood_name": barrio  })
 
     dict = {}
     n = res.length
     for (i = 0; i<n; i++) {
-        year = res[i].Year
-        num = res[i].Number
+        year = res[i].year
+        num = res[i].number
         if (year in dict) dict[year] += num
         else dict[year] = num
     }
@@ -97,13 +113,13 @@ function loadBirthsData(barrio){
 function loadDeathsData(barrio){
 
     var deaths = db.getCollection('deaths')
-    var res = deaths.find({ "Neighborhood Name": barrio })
+    var res = deaths.find({ "neighborhood_name": barrio })
 
     dict = {}
     n = res.length
     for (i = 0; i<n; i++) {
-        year = res[i].Year
-        num = res[i].Number
+        year = res[i].year
+        num = res[i].number
         if (year in dict) dict[year] += num
         else dict[year] = num
     }
@@ -115,17 +131,17 @@ function loadDeathsData(barrio){
 function loadGenderData(barrio){
 
     var population = db.getCollection('population')
-    var res = population.find({ "Neighborhood Name": barrio })
+    var res = population.find({ "neighborhood_name": barrio })
 
     dict_male = {}
     dict_female = {}
     n = res.length
     for (i = 0; i<n; i++) {
-        year = res[i].Year
-        num = res[i].Number
-        gender = res[i].Gender
+        year = res[i].year
+        num = res[i].number
+        gender = res[i].gender
 
-        if (gender == 'Male') {
+        if (gender == 'male') {
             if (year in dict_male) dict_male[year] += num
             else dict_male[year] = num
         } else {
