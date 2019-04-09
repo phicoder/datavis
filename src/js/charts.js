@@ -54,12 +54,11 @@
 //     });
 // }
 
-function showBirthsDeathsChart(births, deaths){
-    console.log('called')
-    births_x_values = []
-    births_y_values = []
+function showBirthsDeathsChart(births, deaths) {
+    let births_x_values = []
+    let births_y_values = []
 
-    for (x in births){
+    for (x in births) {
         births_x_values.push(x)
         births_y_values.push(births[x])
     }
@@ -75,25 +74,12 @@ function showBirthsDeathsChart(births, deaths){
 
 var chart_1 = null
 
-$(function() {
-
-
-    // deaths = loadDeathsData('el Raval')
-    // deaths_x_values = []
-    // deaths_y_values = []
-    //
-    // for (x in deaths){
-    //     deaths_x_values.push(x)
-    //     deaths_y_values.push(deaths[x])
-    // }
-    // document.getElementById("chart_4").innerHTML =
-    // document.getElementById("chart_4").innerHTML =
-
+$(function () {
     births = loadBirthsData('el Raval')
-    births_x_values = []
-    births_y_values = []
+    let births_x_values = []
+    let births_y_values = []
 
-    for (x in births){
+    for (let x in births) {
         births_x_values.push(x)
         births_y_values.push(births[x])
     }
@@ -135,10 +121,10 @@ $(function() {
             // categories: births_x_values
 
         }
-        // ,{
-        //     name: 'Deaths',
-        //     data: deaths_y_values
-        // }
+            // ,{
+            //     name: 'Deaths',
+            //     data: deaths_y_values
+            // }
         ],
         xAxis: {
             categories: births_x_values,
@@ -147,10 +133,7 @@ $(function() {
         }
 
 
-
-
-
-    });
+    })
 
 
     var chart_2 = new Highcharts.chart('chart_2', {
@@ -201,7 +184,7 @@ $(function() {
         }],
 
 
-    });
+    })
 
     var chart_3 = new Highcharts.chart('chart_3', {
 
@@ -251,7 +234,7 @@ $(function() {
         }],
 
 
-    });
+    })
 
 
     // var chart_4 = new Highcharts.chart('chart_4', {
@@ -304,4 +287,4 @@ $(function() {
     //
     // });
 
-});
+})

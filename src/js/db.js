@@ -10,8 +10,9 @@ dataVars.forEach(dataVar => {
         collection.insert(element)
     })
 
-    console.log(window)
     window[dataVar] = undefined
-    console.log(window)
 })
 
+
+births = db.getCollection('births')
+console.log(births.find({'gender': 'Boys'}))
