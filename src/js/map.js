@@ -23,7 +23,7 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
         },
 
         subtitle: {
-            text: 'Choose one to see detailed information'
+            text: 'Choose one to see detailed information on the right'
         },
 
         colorAxis: {
@@ -58,9 +58,14 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             var deaths = loadDeathsData(barrio)
                             showBirthsDeathsChart(births, deaths)
 
-                            var genderData = loadGenderData(barrio)
-                            var male = genderData[0]
-                            var female = genderData[1]
+                            var migration = loadMigrationData(barrio)
+                            //call function to load migration chart
+
+
+                            //IDK if we will use this
+                            //var genderData = loadGenderData(barrio)
+                            //var male = genderData[0]
+                            //var female = genderData[1]
                             // call function to load second chart with parameters male and female
 
                         }
@@ -122,6 +127,28 @@ function loadDeathsData(barrio){
         num = res[i].number
         if (year in dict) dict[year] += num
         else dict[year] = num
+    }
+
+    return dict
+
+}
+
+function loadMigrationData(barrio){
+
+    var migration = db.getCollection('immigrants_emigrants')
+    var res = migration.find({ "neighborhood_name": barrio })
+
+    dict = {}
+    n = res.length
+    for (i = 0; i<n; i++) {
+        year = res[i].year
+        im = res[i].immigrants
+        em = res[i].emigrants
+        if (year in dict) {
+            dict[year].immigrants += im
+            dict[year].emigrants += em
+        }
+        else dict[year] = { immigrants: im, emigrants: em}
     }
 
     return dict

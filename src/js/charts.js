@@ -65,9 +65,6 @@ function showBirthsDeathsChart(births, deaths) {
     chart_1.series[0].update({
         data: births_y_values
     })
-    chart_1.xAxis.update({
-        categories: births_x_values
-    })
     chart_1.redraw()
 }
 
