@@ -1,59 +1,3 @@
-// function showBirthsDeathsChart(births, deaths){
-//     // births = loadBirthsData('el Raval')
-//     births_x_values = []
-//     births_y_values = []
-//
-//     for (x in births){
-//         births_x_values.push(x)
-//         births_y_values.push(births[x])
-//     }
-//     var chart_1 = new Highcharts.chart('chart_1', {
-//
-//         title: {
-//             text: 'Solar Employment Growth by Sector, 2010-2016'
-//         },
-//
-//         subtitle: {
-//             text: 'Source: thesolarfoundation.com'
-//         },
-//
-//         yAxis: {
-//             title: {
-//                 text: 'Number of Employees'
-//             }
-//         },
-//         legend: {
-//             layout: 'vertical',
-//             align: 'right',
-//             verticalAlign: 'middle'
-//         },
-//
-//         plotOptions: {
-//             series: {
-//                 label: {
-//                     connectorAllowed: false
-//                 }
-//                     // ,
-//                 // pointStart: 2010
-//             }
-//         },
-//         series: [{
-//             name: 'Births',
-//             data: births_y_values
-//         }
-//         // ,{
-//         //     name: 'Deaths',
-//         //     data: deaths_y_values
-//         // }
-//         ],
-//         xAxis: {
-//             categories: births_x_values
-//         }
-//
-//
-//     });
-// }
-
 function showBirthsDeathsChart(births, deaths) {
     let births_x_values = []
     let births_y_values = []
@@ -65,21 +9,107 @@ function showBirthsDeathsChart(births, deaths) {
     chart_1.series[0].update({
         data: births_y_values
     })
+
+    let deaths_x_values = [null,null]
+    let deaths_y_values = [null,null]
+    for (x in deaths) {
+        console.log('death loop')
+        deaths_x_values.push(x)
+        deaths_y_values.push(deaths[x])
+    }
+    chart_1.series[1].update({
+        data: deaths_y_values
+    })
     chart_1.redraw()
 }
 
 
 var chart_1 = null
+var chart_2 = null
+
+function get_birth_death_data_ready(bd){
+    let x_values = []
+    let y_values = [null,null]
+    if (Object.keys(bd).length == 5){
+        console.log('here')
+        y_values = []
+    }
+
+    for (let x in bd) {
+        x_values.push(x)
+        y_values.push(bd[x])
+    }
+    return [x_values, y_values]
+}
+
+function update_birth_death_data_ready(births, deaths){
+    birthz = get_birth_death_data_ready(births)
+    births_x_values = birthz[0]
+    births_y_values = birthz[1]
+
+    deathz = get_birth_death_data_ready(deaths)
+    deaths_x_values = deathz[0]
+    deaths_y_values = deathz[1]
+
+    chart_1.series[0].update({
+        data: births_y_values
+    })
+    chart_1.series[1].update({
+        data: deaths_y_values
+    })
+    chart_1.redraw()
+
+
+}
+
+function get_migration_data_ready(migration){
+    let immigrants = []
+    let emigrants = []
+    let net = []
+    for (m in migration){
+        im = migration[m].immigrants
+        em = migration[m].emigrants
+        immigrants.push(im)
+        emigrants.push(-em)
+        net.push(im - em)
+
+    }
+    return [immigrants, emigrants, net]
+}
+
+function showMigrationData(migration){
+    migration = get_migration_data_ready(migration)
+    immigrants = migration[0]
+    emigrants = migration[1]
+    net = migration[2]
+    chart_2.series[0].update({
+        data: immigrants
+    })
+    chart_2.series[1].update({
+        data: emigrants
+    })
+    chart_2.series[2].update({
+        data: net
+    })
+    chart_2.redraw()
+
+}
 
 $(function () {
     births = loadBirthsData('el Raval')
-    let births_x_values = []
-    let births_y_values = []
 
-    for (let x in births) {
-        births_x_values.push(x)
-        births_y_values.push(births[x])
-    }
+    deaths = loadDeathsData('el Raval')
+    // update_birth_death_data_ready(births, deaths)
+
+    birthz = get_birth_death_data_ready(births)
+    births_x_values = birthz[0]
+    births_y_values = birthz[1]
+
+    deathz = get_birth_death_data_ready(deaths)
+    deaths_x_values = deathz[0]
+    deaths_y_values = deathz[1]
+
+
 
     chart_1 = new Highcharts.chart('chart_1', {
 
@@ -93,7 +123,7 @@ $(function () {
 
         yAxis: {
             title: {
-                text: 'Births'
+                text: 'Births and deaths'
             }
         },
         legend: {
@@ -118,13 +148,13 @@ $(function () {
             // categories: births_x_values
 
         }
-            // ,{
-            //     name: 'Deaths',
-            //     data: deaths_y_values
-            // }
+            ,{
+                name: 'Deaths',
+                data: deaths_y_values
+            }
         ],
         xAxis: {
-            categories: births_x_values,
+            categories: [2013,2014,2015,2016,2017],
             title: "Year"
 
         }
@@ -132,20 +162,24 @@ $(function () {
 
     })
 
+    migration = loadMigrationData('el Raval')
+    migration = get_migration_data_ready(migration)
+    immigrants = migration[0]
+    emigrants = migration[1]
+    net = migration[2]
 
-    var chart_2 = new Highcharts.chart('chart_2', {
-
-        title: {
-            text: 'Solar Employment Growth by Sector, 2010-2016'
+    chart_2 = new Highcharts.chart('chart_2', {
+        chart:{
+            type: 'area'
         },
 
-        subtitle: {
-            text: 'Source: thesolarfoundation.com'
+        title: {
+            text: 'Immigration and emigration'
         },
 
         yAxis: {
             title: {
-                text: 'Number of Employees'
+                text: 'Immigration/emigration'
             }
         },
         legend: {
@@ -155,33 +189,52 @@ $(function () {
         },
 
         plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
-                },
-                pointStart: 2010
+            area: {
+                fillOpacity: 0.2,
+                pointStart: 2013,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
             }
         },
 
         series: [{
-            name: 'Installation',
-            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-        }, {
-            name: 'Manufacturing',
-            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-        }, {
-            name: 'Sales & Distribution',
-            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-        }, {
-            name: 'Project Development',
-            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-        }, {
-            name: 'Other',
-            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-        }],
+            name: "Immigrants",
+            data: immigrants,
+            fillColor: 'rgba(58, 231, 73, 0.3)',
+            lineColor: 'rgba(58, 231, 73, 1)'
+            // type: 'area'
+
+        },{
+            name: "Emigrants",
+            data: emigrants,
+            fillColor: 'rgba(250, 206, 162, 0.50)',
+            lineColor: 'rgba(250, 150, 162, 1)'
+        },{
+            name: "Net Migration",
+            data: net,
+            fillColor: 'rgba(183, 183, 183, 0.4)',
+            lineColor: 'rgba(183, 183, 183, 1)'
+        }
+
+        ],
+        xAxis: {
+            categories: [2013,2014,2015,2016,2017],
+            title: "Year"
+
+        }
 
 
     })
+
+
 
     var chart_3 = new Highcharts.chart('chart_3', {
 
