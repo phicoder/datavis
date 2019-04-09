@@ -1,4 +1,4 @@
-let dataVars = ['births', 'deaths', 'frequentBabyNames', 'frequentNames', 'population', 'unemployment']
+let dataVars = ['births', 'deaths', 'frequent_baby_names', 'frequent_names', 'population', 'unemployment', 'immigrants_emigrants']
 
 var db = new loki()
 
