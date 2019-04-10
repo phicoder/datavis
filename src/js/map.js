@@ -60,14 +60,16 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
                             var migration = loadMigrationData(barrio)
                             showMigrationData(migration)
-                            //call function to load migration chart
+
+                            var ageDistribution = loadAgeData(barrio)
+                            //load age distribution chart
 
 
                             //IDK if we will use this
                             //var genderData = loadGenderData(barrio)
                             //var male = genderData[0]
                             //var female = genderData[1]
-                            // call function to load second chart with parameters male and female
+                            //call function to load second chart with parameters male and female
 
                         }
                     }
@@ -156,7 +158,40 @@ function loadMigrationData(barrio){
 
 }
 
-function loadGenderData(barrio){
+function loadAgeData(barrio) {
+
+    var population = db.getCollection('population')
+    var res = population.find({ "neighborhood_name": barrio })
+
+    dict = {}
+    n = res.length
+    for (i = 0; i<n; i++) {
+
+        gender = res[i].gender
+        age = res[i].age
+        number = res[i].number
+        year = res[i].year
+
+        if (year != 2017) continue
+
+        if (age in dict) {
+            if (gender in dict[age]) {
+                dict[age][gender] += number
+            } else {
+                dict[age][gender] = number
+            }
+        }
+        else {
+            dict[age] = {}
+            dict[age][gender] = number
+        }
+
+    }
+
+    return dict
+}
+
+/*function loadGenderData(barrio){
 
     var population = db.getCollection('population')
     var res = population.find({ "neighborhood_name": barrio })
@@ -180,7 +215,8 @@ function loadGenderData(barrio){
 
     return [dict_male, dict_female]
 
-}
+}*/
+
 
 
 

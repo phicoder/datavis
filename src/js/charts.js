@@ -13,7 +13,7 @@ function showBirthsDeathsChart(births, deaths) {
     let deaths_x_values = [null,null]
     let deaths_y_values = [null,null]
     for (x in deaths) {
-        console.log('death loop')
+        //console.log('death loop')
         deaths_x_values.push(x)
         deaths_y_values.push(deaths[x])
     }
@@ -31,7 +31,7 @@ function get_birth_death_data_ready(bd){
     let x_values = []
     let y_values = [null,null]
     if (Object.keys(bd).length == 5){
-        console.log('here')
+        //console.log('here')
         y_values = []
     }
 
