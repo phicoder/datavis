@@ -62,6 +62,7 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             showMigrationData(migration)
 
                             var ageDistribution = loadAgeData(barrio)
+                            showAgeDistribution(ageDistribution)
                             //load age distribution chart
 
 

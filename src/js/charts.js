@@ -1,3 +1,7 @@
+var chart_3 = null
+var chart_2 = null
+var chart_1 = null
+
 function showBirthsDeathsChart(births, deaths) {
     let births_x_values = []
     let births_y_values = []
@@ -6,7 +10,7 @@ function showBirthsDeathsChart(births, deaths) {
         births_x_values.push(x)
         births_y_values.push(births[x])
     }
-    chart_1.series[0].update({
+    chart_3.series[0].update({
         data: births_y_values
     })
 
@@ -17,16 +21,11 @@ function showBirthsDeathsChart(births, deaths) {
         deaths_x_values.push(x)
         deaths_y_values.push(deaths[x])
     }
-    chart_1.series[1].update({
+    chart_3.series[1].update({
         data: deaths_y_values
     })
-    chart_1.redraw()
+    chart_3.redraw()
 }
-
-
-var chart_1 = null
-var chart_2 = null
-
 function get_birth_death_data_ready(bd){
     let x_values = []
     let y_values = [null,null]
@@ -41,27 +40,25 @@ function get_birth_death_data_ready(bd){
     }
     return [x_values, y_values]
 }
-
-function update_birth_death_data_ready(births, deaths){
-    birthz = get_birth_death_data_ready(births)
-    births_x_values = birthz[0]
-    births_y_values = birthz[1]
-
-    deathz = get_birth_death_data_ready(deaths)
-    deaths_x_values = deathz[0]
-    deaths_y_values = deathz[1]
-
-    chart_1.series[0].update({
-        data: births_y_values
-    })
-    chart_1.series[1].update({
-        data: deaths_y_values
-    })
-    chart_1.redraw()
-
-
-}
-
+// function update_birth_death_data_ready(births, deaths){
+//     birthz = get_birth_death_data_ready(births)
+//     births_x_values = birthz[0]
+//     births_y_values = birthz[1]
+//
+//     deathz = get_birth_death_data_ready(deaths)
+//     deaths_x_values = deathz[0]
+//     deaths_y_values = deathz[1]
+//
+//     chart_3.series[0].update({
+//         data: births_y_values
+//     })
+//     chart_3.series[1].update({
+//         data: deaths_y_values
+//     })
+//     chart_3.redraw()
+//
+//
+// }
 function get_migration_data_ready(migration){
     let immigrants = []
     let emigrants = []
@@ -76,7 +73,6 @@ function get_migration_data_ready(migration){
     }
     return [immigrants, emigrants, net]
 }
-
 function showMigrationData(migration){
     migration = get_migration_data_ready(migration)
     immigrants = migration[0]
@@ -94,7 +90,35 @@ function showMigrationData(migration){
     chart_2.redraw()
 
 }
-
+function   get_age_distribution_ready(ageDistribution){
+    let males = []
+    let females = []
+    let total = 0
+    console.log(ageDistribution)
+    for (x in ageDistribution){
+        male = ageDistribution[x].Male
+        female = ageDistribution[x].Female
+        total = total + male + female
+    }
+    pct_total = 0
+    for (x in ageDistribution){
+        males.push(-ageDistribution[x].Male / total * 100)
+        females.push(ageDistribution[x].Female / total * 100)
+    }
+    return [males, females]
+}
+function showAgeDistribution(ageDistribution){
+    fm = get_age_distribution_ready(ageDistribution)
+    males = fm[0]
+    females = fm[1]
+    chart_1.series[0].update({
+        data:males
+    })
+    chart_1.series[1].update({
+        data:females
+    })
+    chart_1.redraw()
+}
 $(function () {
     births = loadBirthsData('el Raval')
 
@@ -111,7 +135,7 @@ $(function () {
 
 
 
-    chart_1 = new Highcharts.chart('chart_1', {
+    chart_3 = new Highcharts.chart('chart_3', {
 
         title: {
             text: 'Births and Deaths'
@@ -235,59 +259,73 @@ $(function () {
     })
 
 
+    var ageDistribution = loadAgeData('el Raval')
+    fm = get_age_distribution_ready(ageDistribution)
+    males = fm[0]
+    females = fm[1]
 
-    var chart_3 = new Highcharts.chart('chart_3', {
 
+
+    var categories = Object.keys(ageDistribution)
+
+   chart_1 =  Highcharts.chart('chart_1', {
+        chart: {
+            type: 'bar'
+        },
         title: {
-            text: 'Solar Employment Growth by Sector, 2010-2016'
+            text: 'Population pyramid of 2017'
         },
 
-        subtitle: {
-            text: 'Source: thesolarfoundation.com'
-        },
-
+        xAxis: [{
+            categories: categories,
+            reversed: false,
+            labels: {
+                step: 1
+            }
+        }, { // mirror axis on right side
+            opposite: true,
+            reversed: false,
+            categories: categories,
+            linkedTo: 0,
+            labels: {
+                step: 1
+            }
+        }],
         yAxis: {
             title: {
-                text: 'Number of Employees'
+                text: null
+            },
+            labels: {
+                formatter: function () {
+                    return Math.abs(this.value) + '%';
+                }
             }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
         },
 
         plotOptions: {
             series: {
-                label: {
-                    connectorAllowed: false
-                },
-                pointStart: 2010
+                stacking: 'normal'
+            }
+        },
+
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                    'Percentage: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0) + '%';
             }
         },
 
         series: [{
-            name: 'Installation',
-            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+            name: 'Male',
+            data: males
         }, {
-            name: 'Manufacturing',
-            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-        }, {
-            name: 'Sales & Distribution',
-            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-        }, {
-            name: 'Project Development',
-            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-        }, {
-            name: 'Other',
-            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-        }],
+            name: 'Female',
+            data: females
+        }]
+    });
 
 
-    })
-
-
-    // var chart_4 = new Highcharts.chart('chart_4', {
+    // var chart_3 = new Highcharts.chart('chart_3', {
     //
     //     title: {
     //         text: 'Solar Employment Growth by Sector, 2010-2016'
