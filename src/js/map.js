@@ -1,4 +1,9 @@
+//Define global variables to sync radiobut&graph
+barrio_global = 'el Raval'
+gender_global = "all"
+
 $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/barris_geo.json', function (geojson) {
+    
 
     var data = []
     $.each(geojson.features, function (index, feature) {
@@ -52,13 +57,22 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
                             let barrio = this.N_Barri
 
+                            //keep track by means of global variables
+                            barrio_global = barrio
+                            //patch until db is all unified to Male & Female
+                            //then can be removed
+                            if (gender_global == "Male") { gender = "Boys"}
+                            else if (gender_global == "Female") {gender = "Girls"}
+                            else { gender = "all" }
+
                             $("#barrio_name").html(barrio)
 
-                            var births = loadBirthsData(barrio)
-                            var deaths = loadDeathsData(barrio)
+                            var births = loadBirthsData(barrio, gender)
+                            var deaths = loadDeathsData(barrio, gender)
                             showBirthsDeathsChart(births, deaths)
 
-                            var migration = loadMigrationData(barrio)
+
+                            var migration = loadMigrationData(barrio, gender_global)
                             showMigrationData(migration)
 
                             var ageDistribution = loadAgeData(barrio)
@@ -101,10 +115,14 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
 });
 
-function loadBirthsData(barrio){
+function loadBirthsData(barrio, gender="all"){
 
     var births = db.getCollection('births')
-    var res = births.find({ "neighborhood_name": barrio  })
+    if (gender == "all") {
+        var res = births.find({ "neighborhood_name": barrio  })
+    } else {
+        var res = births.find({ "neighborhood_name": barrio, "gender": gender  })
+    }
 
     dict = {}
     n = res.length
@@ -119,10 +137,14 @@ function loadBirthsData(barrio){
 
 }
 
-function loadDeathsData(barrio){
+function loadDeathsData(barrio, gender="all"){
 
     var deaths = db.getCollection('deaths')
-    var res = deaths.find({ "neighborhood_name": barrio })
+    if (gender == "all") {
+        var res = deaths.find({ "neighborhood_name": barrio  })
+    } else {
+        var res = deaths.find({ "neighborhood_name": barrio, "gender": gender  })
+    }
 
     dict = {}
     n = res.length
@@ -137,10 +159,15 @@ function loadDeathsData(barrio){
 
 }
 
-function loadMigrationData(barrio){
+function loadMigrationData(barrio, gender="all"){
 
     var migration = db.getCollection('immigrants_emigrants')
-    var res = migration.find({ "neighborhood_name": barrio })
+    if ( gender == "all") {
+        var res = migration.find({ "neighborhood_name": barrio })
+    } else {
+        var res = migration.find({ "neighborhood_name": barrio, "gender": gender })
+    }
+
 
     dict = {}
     n = res.length
