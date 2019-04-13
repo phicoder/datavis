@@ -197,10 +197,9 @@ $(function () {
 
     chart_2 = new Highcharts.chart('chart_2', {
         chart:{
-            type: 'column',
+            type: 'area',
             height: 150,
-            width: 500,
-
+            width: 600,
         },
 
         title: {
@@ -208,24 +207,10 @@ $(function () {
         },
 
         yAxis: {
-           min: 0,
             title: {
-                text: 'Net Migration'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                 fontWeight: 'bold',
-                 color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                }
-             }
+                text: 'Immigration/emigration'
+            }
         },
-
-        tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-        },
-
         legend: {
             layout: 'vertical',
             align: 'right',
@@ -233,13 +218,20 @@ $(function () {
         },
 
         plotOptions: {
-        column: {
-            stacking: 'normal',
-            dataLabels: {
-                enabled: false,
-                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            area: {
+                fillOpacity: 0.2,
+                pointStart: 2013,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
             }
-        }
         },
 
         series: [{
@@ -284,8 +276,8 @@ $(function () {
    chart_1 =  Highcharts.chart('chart_1', {
         chart: {
             type: 'bar',
-            height:170,
-            width:500,
+            height: 200,
+            width: 600,
         },
         title: {
             text: 'Population pyramid of 2017'
