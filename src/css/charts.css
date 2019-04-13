@@ -9,3 +9,19 @@
     text-align: center;
     color: gray;
 }
+#chart_1{
+    position:fixed;
+    left: 680px;
+    top:40px;
+}
+#chart_2{
+    position:fixed;
+    left: 680px;
+    top:200px;
+}
+
+#chart_3{
+    position:fixed;
+    left: 680px;
+    top:370px;
+}
