@@ -37,10 +37,14 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
         plotOptions: {
             series: {
+                cursor: 'pointer',
+                allowPointSelect: true,
                 marker:{
                     states:{
                         select:{
-                            fillColor:'#66ff00'
+                            color: '#7FFF00',
+                            borderColor: 'black',
+                            dashStyle: 'dot'
                         }
                     }
                 },
@@ -49,11 +53,6 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                         click: function () {
 
                             this.setState("select")
-                            this.update({
-                                marker:{
-                                    fillColor:'#66ff00',
-                                }
-                            })
 
                             let barrio = this.N_Barri
 
@@ -99,10 +98,15 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
             name: 'Population',
             states: {
                 hover: {
-                    color: '#a4edba',
+                    color: '#7FFF00',
                     tooltip: {
                         enabled: false
                     }
+                },
+                select:{
+                    color: '#7FFF00',
+                    borderColor: 'black',
+                    dashStyle: 'dot'
                 }
             },
             dataLabels: {
