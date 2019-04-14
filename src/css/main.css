@@ -4,45 +4,38 @@
     justify-content: flex-start;
     align-items: stretch;
     align-content: stretch;
-
     height: 100%;
-    overflow: hidden;
 }
 
 #wrapper > div {
     flex: 1;
 }
 
-#map {
-    background: aquamarine;
-}
-
-#charts {
-    background: brown;
-}
-
 .row {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     width: 100%;
     height: 100%;
-    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
 }
 
 .column {
     display: flex;
     flex-direction: column;
-    flex-basis: 100%;
     flex: 1;
     height: 100%;
     width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 #barrio_name {
     text-align: center;
     font-size: 30px;
-    margin-top: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #map_name {
@@ -50,4 +43,8 @@
     font-size: 50px;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+#right_side {
+    margin-left: 25px;
 }

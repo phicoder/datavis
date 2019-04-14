@@ -276,7 +276,7 @@ $(function () {
    chart_1 =  Highcharts.chart('chart_1', {
         chart: {
             type: 'bar',
-            height: 200,
+            height: 400,
             width: 600,
         },
         title: {
