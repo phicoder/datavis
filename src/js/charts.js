@@ -67,7 +67,7 @@ function get_migration_data_ready(migration){
         im = migration[m].immigrants
         em = migration[m].emigrants
         immigrants.push(im)
-        emigrants.push(-em)
+        emigrants.push(em)
         net.push(im - em)
 
     }
@@ -136,7 +136,10 @@ $(function () {
 
 
     chart_3 = new Highcharts.chart('chart_3', {
-
+        chart: {
+            height: 150,
+            width: 600,
+        },
         title: {
             text: 'Births and Deaths'
         },
@@ -194,7 +197,9 @@ $(function () {
 
     chart_2 = new Highcharts.chart('chart_2', {
         chart:{
-            type: 'area'
+            type: 'area',
+            height: 150,
+            width: 600,
         },
 
         title: {
@@ -270,7 +275,9 @@ $(function () {
 
    chart_1 =  Highcharts.chart('chart_1', {
         chart: {
-            type: 'bar'
+            type: 'bar',
+            height: 200,
+            width: 600,
         },
         title: {
             text: 'Population pyramid of 2017'

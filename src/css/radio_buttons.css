@@ -1,0 +1,116 @@
+/* Hide the browser's default radio button */
+.radio_container input {
+  display: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border-radius: 60%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio_container input:checked ~ .checkmark {
+  background-color: #2F4F4F;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio_container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+#chart2_gender_male, #checkmark2_male{
+    position:fixed;
+    left: 870px;
+    top:390px;
+}
+
+#chart2_label_gender_male {
+    position:fixed;
+    left: 900px;
+    top:390px;
+}
+
+#chart2_gender_female, #checkmark2_female { 
+    position:fixed;
+    left: 970px;
+    top:390px;
+}
+
+#chart2_label_gender_female{
+    position:fixed;
+    left: 990px;
+    top:390px;
+}
+
+#chart2_gender_all, #checkmark2_all {
+    position:fixed;
+    left: 1070px;
+    top:390px;
+}
+
+#chart2_label_gender_all{
+    position:fixed;
+    left: 1090px;
+    top:390px;
+}
+#chart3_gender_male, #checkmark3_male {
+    position:fixed;
+    left: 870px;
+    top:560px;
+}
+#chart3_label_gender_male{
+    position:fixed;
+    left: 900px;
+    top:560px;
+}
+
+#chart3_gender_female, #checkmark3_female{
+    position:fixed;
+    left: 970px;
+    top:560px;
+}
+
+#chart3_label_gender_female{
+    position:fixed;
+    left: 990px;
+    top:560px;
+}
+
+#chart3_gender_all, #checkmark3_all{
+    position:fixed;
+    left: 1070px;
+    top:560px;
+}
+
+#chart3_label_gender_all{
+    position:fixed;
+    left: 1090px;
+    top:560px;
+}
