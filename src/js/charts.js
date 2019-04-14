@@ -67,7 +67,7 @@ function get_migration_data_ready(migration){
         im = migration[m].immigrants
         em = migration[m].emigrants
         immigrants.push(im)
-        emigrants.push(em)
+        emigrants.push(-em)
         net.push(im - em)
 
     }
