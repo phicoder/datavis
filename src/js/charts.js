@@ -94,7 +94,7 @@ function   get_age_distribution_ready(ageDistribution){
     let males = []
     let females = []
     let total = 0
-    console.log(ageDistribution)
+    // console.log(ageDistribution)
     for (x in ageDistribution){
         male = ageDistribution[x].Male
         female = ageDistribution[x].Female
@@ -323,6 +323,12 @@ $(function () {
             data: females
         }]
     });
+
+    // let population = loadPopulationData('el Raval')
+    // console.log(population)
+    // console.log(migration[0])
+    // console.log(migration[1])
+
 
 
     // var chart_3 = new Highcharts.chart('chart_3', {
