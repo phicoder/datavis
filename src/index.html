@@ -2,7 +2,6 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="css/charts.css">
     <link rel="stylesheet" href="css/radio_buttons.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
@@ -45,12 +44,19 @@
                     <div class="column">
                         <div id="chart_2" class="row"></div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="chart2_all" name="chart2_radios" checked onclick="filter_by_gender(2, 'all')">
-                            <label class="form-check-label" for="chart2_all">All</label>
-                            <input type="radio" class="form-check-input" id="chart2_male" name="chart2_radios" onclick="filter_by_gender(2, 'Male')">
-                            <label class="form-check-label" for="chart2_male">Male</label>
-                            <input type="radio" class="form-check-input" id="chart2_female" name="chart2_radios" onclick="filter_by_gender(2, 'Female')">
-                            <label class="form-check-label" for="chart2_female">Female</label>
+                            <label class="radio_container" for="chart2_all">All
+                                <input type="radio" class="form-check-input" id="chart2_all" name="chart2_radios" checked onclick="filter_by_gender(2, 'all')">
+                                <span class="checkmark"></span>
+                            </label>
+
+                            <label class="radio_container" for="chart2_male">Male
+                                <input type="radio" class="form-check-input" id="chart2_male" name="chart2_radios" onclick="filter_by_gender(2, 'Male')">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio_container" for="chart2_female">Female
+                                <input type="radio" class="form-check-input" id="chart2_female" name="chart2_radios" onclick="filter_by_gender(2, 'Female')">
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -58,13 +64,19 @@
                     <div class="column">
                         <div id="chart_3" class="row"></div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="chart3_all" name="chart3_radios" checked onclick="filter_by_gender(3, 'all')">
-                            <label class="form-check-label" for="chart3_all">All</label>
-                            <input type="radio" class="form-check-input" id="chart3_male" name="chart3_radios" onclick="filter_by_gender(3, 'Male')">
-                            <label class="form-check-label" for="chart3_male">Male</label>
-                            <input type="radio" class="form-check-input" id="chart3_female" name="chart3_radios" onclick="filter_by_gender(3, 'Female')">
-                            <label class="form-check-label" for="chart3_female">Female</label>
-                        </div>.
+                            <label class="radio_container" for="chart3_all">All
+                                <input type="radio" class="form-check-input" id="chart3_all" name="chart3_radios" checked onclick="filter_by_gender(3, 'all')">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio_container" for="chart3_male">Male
+                                <input type="radio" class="form-check-input" id="chart3_male" name="chart3_radios" onclick="filter_by_gender(3, 'Male')">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio_container" for="chart3_female">Female
+                                <input type="radio" class="form-check-input" id="chart3_female" name="chart3_radios" onclick="filter_by_gender(3, 'Female')">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
         </div>
