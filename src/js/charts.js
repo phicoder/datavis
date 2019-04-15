@@ -218,7 +218,7 @@ $(function () {
             name: "Net Migration",
             data: net,
             color: 'rgba(150, 150, 150, 1)',
-            fillColor: 'rgba(183, 183, 183, 1)',
+            fillColor: 'rgba(183, 183, 183, 0.5)',
             lineColor: 'rgba(150, 150, 150, 1)'
         }
 
