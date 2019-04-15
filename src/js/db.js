@@ -15,4 +15,4 @@ dataVars.forEach(dataVar => {
 
 
 births = db.getCollection('births')
-console.log(births.find({'gender': 'Boys'}))
+

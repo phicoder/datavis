@@ -12,7 +12,6 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
             value: feature.properties['Homes'] + feature.properties['Dones']
         });
     });
-
     var history_color = null
     var history_disctrict = null
 
@@ -78,12 +77,8 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             showAgeDistribution(ageDistribution)
                             //load age distribution chart
 
+                            var populationEvolution = loadPopulationData(barrio)
 
-                            //IDK if we will use this
-                            //var genderData = loadGenderData(barrio)
-                            //var male = genderData[0]
-                            //var female = genderData[1]
-                            //call function to load second chart with parameters male and female
 
                         }
                     }
@@ -222,33 +217,6 @@ function loadAgeData(barrio) {
 
     return dict
 }
-
-/*function loadGenderData(barrio){
-
-    var population = db.getCollection('population')
-    var res = population.find({ "neighborhood_name": barrio })
-
-    dict_male = {}
-    dict_female = {}
-    n = res.length
-    for (i = 0; i<n; i++) {
-        year = res[i].year
-        num = res[i].number
-        gender = res[i].gender
-
-        if (gender == 'male') {
-            if (year in dict_male) dict_male[year] += num
-            else dict_male[year] = num
-        } else {
-            if (year in dict_female) dict_female[year] += num
-            else dict_female[year] = num
-        }
-    }
-
-    return [dict_male, dict_female]
-
-}*/
-
 
 
 
