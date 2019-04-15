@@ -76,20 +76,10 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
                             var ageDistribution = loadAgeData(barrio)
                             showAgeDistribution(ageDistribution)
-<<<<<<< HEAD
                             //load age distribution chart
 
                             var populationEvolution = loadPopulationData(barrio)
 
-
-
-                            //IDK if we will use this
-                            //var genderData = loadGenderData(barrio)
-                            //var male = genderData[0]
-                            //var female = genderData[1]
-                            //call function to load second chart with parameters male and female
-=======
->>>>>>> master
 
                         }
                     }
@@ -224,57 +214,6 @@ function loadAgeData(barrio) {
     return dict
 }
 
-<<<<<<< HEAD
-function loadPopulationData(barrio) {
-
-    var population = db.getCollection('population')
-    var res = population.find({ "neighborhood_name": barrio })
-
-    dict = {}
-    n = res.length
-    for (i = 0; i<n; i++) {
-
-        number = res[i].number
-        year = res[i].year
-
-        if (year in dict) {
-            dict[year] += number
-        }
-        else dict[year] = number
-    }
-
-    return dict
-}
-
-/*function loadGenderData(barrio){
-
-    var population = db.getCollection('population')
-    var res = population.find({ "neighborhood_name": barrio })
-
-    dict_male = {}
-    dict_female = {}
-    n = res.length
-    for (i = 0; i<n; i++) {
-        year = res[i].year
-        num = res[i].number
-        gender = res[i].gender
-
-        if (gender == 'male') {
-            if (year in dict_male) dict_male[year] += num
-            else dict_male[year] = num
-        } else {
-            if (year in dict_female) dict_female[year] += num
-            else dict_female[year] = num
-        }
-    }
-
-    return [dict_male, dict_female]
-
-}*/
-
-
-=======
->>>>>>> master
 
 
 
