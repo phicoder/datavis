@@ -17,7 +17,6 @@ function showBirthsDeathsChart(births, deaths) {
     let deaths_x_values = [null,null]
     let deaths_y_values = [null,null]
     for (x in deaths) {
-        //console.log('death loop')
         deaths_x_values.push(x)
         deaths_y_values.push(deaths[x])
     }
@@ -30,7 +29,6 @@ function get_birth_death_data_ready(bd){
     let x_values = []
     let y_values = [null,null]
     if (Object.keys(bd).length == 5){
-        //console.log('here')
         y_values = []
     }
 
@@ -40,25 +38,7 @@ function get_birth_death_data_ready(bd){
     }
     return [x_values, y_values]
 }
-// function update_birth_death_data_ready(births, deaths){
-//     birthz = get_birth_death_data_ready(births)
-//     births_x_values = birthz[0]
-//     births_y_values = birthz[1]
-//
-//     deathz = get_birth_death_data_ready(deaths)
-//     deaths_x_values = deathz[0]
-//     deaths_y_values = deathz[1]
-//
-//     chart_3.series[0].update({
-//         data: births_y_values
-//     })
-//     chart_3.series[1].update({
-//         data: deaths_y_values
-//     })
-//     chart_3.redraw()
-//
-//
-// }
+
 function get_migration_data_ready(migration){
     let immigrants = []
     let emigrants = []
@@ -143,11 +123,6 @@ $(function () {
         title: {
             text: 'Births and Deaths'
         },
-
-        // subtitle: {
-        //     text: 'Source: thesolarfoundation.com'
-        // },
-
         yAxis: {
             title: {
                 text: 'Births and deaths'
@@ -164,16 +139,12 @@ $(function () {
                 label: {
                     connectorAllowed: false
                 }
-                // ,
-                // pointStart: 2013
             }
         },
 
         series: [{
             name: 'Births',
             data: births_y_values
-            // categories: births_x_values
-
         }
             ,{
                 name: 'Deaths',
@@ -330,7 +301,7 @@ $(function () {
             data: females
         }]
     });
-    chart_1.reflow()
+
     // var chart_3 = new Highcharts.chart('chart_3', {
     //
     //     title: {

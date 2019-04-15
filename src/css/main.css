@@ -1,3 +1,7 @@
+html {
+    font-family: Verdana, sans-serif;
+}
+
 #wrapper {
     display: flex;
     flex-wrap: nowrap;
@@ -35,6 +39,7 @@
     /*width: 100%;*/
     /*align-items: center;*/
     /*justify-content: center;*/
+
 }
 .column > div{
     /*border: solid 1px red;*/
@@ -68,6 +73,7 @@
     /*align-content: stretch;*/
     align-items: center;
     justify-content: center;
+
 }
 
 
