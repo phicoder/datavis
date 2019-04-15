@@ -15,4 +15,7 @@ dataVars.forEach(dataVar => {
 
 
 births = db.getCollection('births')
+<<<<<<< HEAD
 // console.log(births.find({'gender': 'Boys'}))
+=======
+>>>>>>> master

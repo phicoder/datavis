@@ -76,6 +76,7 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
 
                             var ageDistribution = loadAgeData(barrio)
                             showAgeDistribution(ageDistribution)
+<<<<<<< HEAD
                             //load age distribution chart
 
                             var populationEvolution = loadPopulationData(barrio)
@@ -87,6 +88,8 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             //var male = genderData[0]
                             //var female = genderData[1]
                             //call function to load second chart with parameters male and female
+=======
+>>>>>>> master
 
                         }
                     }
@@ -221,6 +224,7 @@ function loadAgeData(barrio) {
     return dict
 }
 
+<<<<<<< HEAD
 function loadPopulationData(barrio) {
 
     var population = db.getCollection('population')
@@ -269,6 +273,8 @@ function loadPopulationData(barrio) {
 }*/
 
 
+=======
+>>>>>>> master
 
 
 
