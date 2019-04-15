@@ -137,8 +137,8 @@ $(function () {
 
     chart_3 = new Highcharts.chart('chart_3', {
         chart: {
-            height: 150,
-            width: 600,
+            // height: 150,
+            // width: 600,
         },
         title: {
             text: 'Births and Deaths'
@@ -198,8 +198,8 @@ $(function () {
     chart_2 = new Highcharts.chart('chart_2', {
         chart:{
             type: 'area',
-            height: 150,
-            width: 600,
+            // height: 150,
+            // width: 600,
         },
 
         title: {
@@ -276,8 +276,8 @@ $(function () {
    chart_1 =  Highcharts.chart('chart_1', {
         chart: {
             type: 'bar',
-            height: 400,
-            width: 600,
+            // height: 400,
+            // width: 600,
         },
         title: {
             text: 'Population pyramid of 2017'
@@ -330,8 +330,7 @@ $(function () {
             data: females
         }]
     });
-
-
+    chart_1.reflow()
     // var chart_3 = new Highcharts.chart('chart_3', {
     //
     //     title: {
