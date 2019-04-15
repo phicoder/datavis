@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/maps/modules/map.js"></script>
-<!--    <script src="https://code.highcharts.com/maps/highmaps.js"></script>-->
+    <!--    <script src="https://code.highcharts.com/maps/highmaps.js"></script>-->
     <script src="https://code.highcharts.com/maps/modules/data.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
@@ -32,54 +32,51 @@
 
 </head>
 <body>
-    <div id="wrapper">
-        <div class="column">
-            <h3 id="map_name">Population of Barcelona</h3>
-            <div id="map" style="height: 100%"></div>
-
+<div id="wrapper">
+    <div class="column">
+        <h3 id="map_name">Population of Barcelona</h3>
+        <div id="map" style="height: 100%"></div>
+    </div>
+    <div id="right_side" class="column">
+        <h3 id="barrio_name">el Raval</h3>
+        <div id="chart_1" class="chart1"></div>
+        <div id="chart_2" class="chart2_3"></div>
+        <div class="form-check form-check-inline">
+            <label class="radio_container" for="chart2_all">All
+                <input type="radio" class="form-check-input" id="chart2_all" name="chart2_radios" checked
+                       onclick="filter_by_gender(2, 'all')">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radio_container" for="chart2_male">Male
+                <input type="radio" class="form-check-input" id="chart2_male" name="chart2_radios"
+                       onclick="filter_by_gender(2, 'Male')">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radio_container" for="chart2_female">Female
+                <input type="radio" class="form-check-input" id="chart2_female" name="chart2_radios"
+                       onclick="filter_by_gender(2, 'Female')">
+                <span class="checkmark"></span>
+            </label>
         </div>
-        <div id="right_side" class="column">
-            <h3 id="barrio_name">el Raval</h3>
-            <div id="chart_1" class="chart1"></div>
-<!--                    <div class="column">-->
-<!--            <div class="chart2_3">-->
-                <div id="chart_2" class="chart2_3"></div>
-                <div class="form-check form-check-inline">
-                    <label class="radio_container" for="chart2_all">All
-                        <input type="radio" class="form-check-input" id="chart2_all" name="chart2_radios" checked onclick="filter_by_gender(2, 'all')">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="radio_container" for="chart2_male">Male
-                        <input type="radio" class="form-check-input" id="chart2_male" name="chart2_radios" onclick="filter_by_gender(2, 'Male')">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="radio_container" for="chart2_female">Female
-                        <input type="radio" class="form-check-input" id="chart2_female" name="chart2_radios" onclick="filter_by_gender(2, 'Female')">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
-<!--            </div>-->
-
-
-<!--            <div class="chart2_3">-->
-                <div id="chart_3" class="chart2_3"></div>
-                <div class="form-check form-check-inline">
-                    <label class="radio_container" for="chart3_all">All
-                        <input type="radio" class="form-check-input" id="chart3_all" name="chart3_radios" checked onclick="filter_by_gender(3, 'all')">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="radio_container" for="chart3_male">Male
-                        <input type="radio" class="form-check-input" id="chart3_male" name="chart3_radios" onclick="filter_by_gender(3, 'Male')">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="radio_container" for="chart3_female">Female
-                        <input type="radio" class="form-check-input" id="chart3_female" name="chart3_radios" onclick="filter_by_gender(3, 'Female')">
-                        <span class="checkmark"></span>
-                    </label>
-<!--                </div>-->
-
-                </div>
+        <div id="chart_3" class="chart2_3"></div>
+        <div class="form-check form-check-inline">
+            <label class="radio_container" for="chart3_all">All
+                <input type="radio" class="form-check-input" id="chart3_all" name="chart3_radios" checked
+                       onclick="filter_by_gender(3, 'all')">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radio_container" for="chart3_male">Male
+                <input type="radio" class="form-check-input" id="chart3_male" name="chart3_radios"
+                       onclick="filter_by_gender(3, 'Male')">
+                <span class="checkmark"></span>
+            </label>
+            <label class="radio_container" for="chart3_female">Female
+                <input type="radio" class="form-check-input" id="chart3_female" name="chart3_radios"
+                       onclick="filter_by_gender(3, 'Female')">
+                <span class="checkmark"></span>
+            </label>
         </div>
     </div>
+</div>
 </body>
 </html>

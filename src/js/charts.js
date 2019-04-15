@@ -14,8 +14,8 @@ function showBirthsDeathsChart(births, deaths) {
         data: births_y_values
     })
 
-    let deaths_x_values = [null,null]
-    let deaths_y_values = [null,null]
+    let deaths_x_values = [null, null]
+    let deaths_y_values = [null, null]
     for (x in deaths) {
         deaths_x_values.push(x)
         deaths_y_values.push(deaths[x])
@@ -25,10 +25,11 @@ function showBirthsDeathsChart(births, deaths) {
     })
     chart_3.redraw()
 }
-function get_birth_death_data_ready(bd){
+
+function get_birth_death_data_ready(bd) {
     let x_values = []
-    let y_values = [null,null]
-    if (Object.keys(bd).length == 5){
+    let y_values = [null, null]
+    if (Object.keys(bd).length === 5) {
         y_values = []
     }
 
@@ -39,11 +40,11 @@ function get_birth_death_data_ready(bd){
     return [x_values, y_values]
 }
 
-function get_migration_data_ready(migration){
+function get_migration_data_ready(migration) {
     let immigrants = []
     let emigrants = []
     let net = []
-    for (m in migration){
+    for (m in migration) {
         im = migration[m].immigrants
         em = migration[m].emigrants
         immigrants.push(im)
@@ -53,7 +54,8 @@ function get_migration_data_ready(migration){
     }
     return [immigrants, emigrants, net]
 }
-function showMigrationData(migration){
+
+function showMigrationData(migration) {
     migration = get_migration_data_ready(migration)
     immigrants = migration[0]
     emigrants = migration[1]
@@ -70,35 +72,37 @@ function showMigrationData(migration){
     chart_2.redraw()
 
 }
-function   get_age_distribution_ready(ageDistribution){
+
+function get_age_distribution_ready(ageDistribution) {
     let males = []
     let females = []
     let total = 0
-    // console.log(ageDistribution)
     for (x in ageDistribution){
         male = ageDistribution[x].Male
         female = ageDistribution[x].Female
         total = total + male + female
     }
     pct_total = 0
-    for (x in ageDistribution){
+    for (x in ageDistribution) {
         males.push(-ageDistribution[x].Male / total * 100)
         females.push(ageDistribution[x].Female / total * 100)
     }
     return [males, females]
 }
-function showAgeDistribution(ageDistribution){
+
+function showAgeDistribution(ageDistribution) {
     fm = get_age_distribution_ready(ageDistribution)
     males = fm[0]
     females = fm[1]
     chart_1.series[0].update({
-        data:males
+        data: males
     })
     chart_1.series[1].update({
-        data:females
+        data: females
     })
     chart_1.redraw()
 }
+
 $(function () {
     births = loadBirthsData('el Raval')
 
@@ -114,12 +118,7 @@ $(function () {
     deaths_y_values = deathz[1]
 
 
-
     chart_3 = new Highcharts.chart('chart_3', {
-        chart: {
-            // height: 150,
-            // width: 600,
-        },
         title: {
             text: 'Births and Deaths'
         },
@@ -133,7 +132,6 @@ $(function () {
             align: 'right',
             verticalAlign: 'middle'
         },
-
         plotOptions: {
             series: {
                 label: {
@@ -141,40 +139,38 @@ $(function () {
                 }
             }
         },
-
-        series: [{
-            name: 'Births',
-            data: births_y_values
-        }
-            ,{
+        series: [
+            {
+                name: 'Births',
+                data: births_y_values,
+                color: '#33CEC3'
+            },
+            {
                 name: 'Deaths',
-                data: deaths_y_values
+                data: deaths_y_values,
+                color: '#FD3F49'
             }
         ],
         xAxis: {
-            categories: [2013,2014,2015,2016,2017],
+            categories: [2013, 2014, 2015, 2016, 2017],
             title: "Year"
 
         }
-
-
     })
 
-    migration = loadMigrationData('el Raval')
-    migration = get_migration_data_ready(migration)
-    immigrants = migration[0]
-    emigrants = migration[1]
-    net = migration[2]
+    var migration = loadMigrationData('el Raval')
+    var migration = get_migration_data_ready(migration)
+    var immigrants = migration[0]
+    var emigrants = migration[1]
+    var net = migration[2]
 
     chart_2 = new Highcharts.chart('chart_2', {
-        chart:{
-            type: 'area',
-            // height: 150,
-            // width: 600,
+        chart: {
+            type: 'area'
         },
 
         title: {
-            text: 'Immigration and emigration'
+            text: 'Immigration and Emigration'
         },
 
         yAxis: {
@@ -198,7 +194,7 @@ $(function () {
                     radius: 2,
                     states: {
                         hover: {
-                            enabled: true
+                            enabled: true,
                         }
                     }
                 }
@@ -208,25 +204,27 @@ $(function () {
         series: [{
             name: "Immigrants",
             data: immigrants,
-            fillColor: 'rgba(58, 231, 73, 0.3)',
-            lineColor: 'rgba(58, 231, 73, 1)'
-            // type: 'area'
+            color: '#009D91',
+            fillColor: 'rgba(100, 203, 194, 0.5)',
+            lineColor: '#009D91'
 
-        },{
+        }, {
             name: "Emigrants",
             data: emigrants,
-            fillColor: 'rgba(250, 206, 162, 0.50)',
-            lineColor: 'rgba(250, 150, 162, 1)'
-        },{
+            color: 'rgba(174, 59, 59, 1)',
+            fillColor: 'rgba(237, 122, 125, 0.50)',
+            lineColor: 'rgba(174, 59, 59, 1)'
+        }, {
             name: "Net Migration",
             data: net,
-            fillColor: 'rgba(183, 183, 183, 0.4)',
-            lineColor: 'rgba(183, 183, 183, 1)'
+            color: 'rgba(150, 150, 150, 1)',
+            fillColor: 'rgba(183, 183, 183, 1)',
+            lineColor: 'rgba(150, 150, 150, 1)'
         }
 
         ],
         xAxis: {
-            categories: [2013,2014,2015,2016,2017],
+            categories: [2013, 2014, 2015, 2016, 2017],
             title: "Year"
 
         }
@@ -241,17 +239,14 @@ $(function () {
     females = fm[1]
 
 
-
     var categories = Object.keys(ageDistribution)
 
-   chart_1 =  Highcharts.chart('chart_1', {
+    chart_1 = Highcharts.chart('chart_1', {
         chart: {
             type: 'bar',
-            // height: 400,
-            // width: 600,
         },
         title: {
-            text: 'Population pyramid of 2017'
+            text: 'Population Pyramid of 2017'
         },
 
         xAxis: [{
@@ -275,7 +270,7 @@ $(function () {
             },
             labels: {
                 formatter: function () {
-                    return Math.abs(this.value) + '%';
+                    return Math.abs(this.value) + '%'
                 }
             }
         },
@@ -288,69 +283,18 @@ $(function () {
 
         tooltip: {
             formatter: function () {
-                return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
-                    'Percentage: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0) + '%';
+                return "<b>${this.series.name} age ${this.point.category}</b><br/>Percentage: ${Highcharts.numberFormat(Math.abs(this.point.y), 0)}%"
             }
         },
 
         series: [{
             name: 'Male',
-            data: males
+            data: males,
+            color: '#33CEC3'
         }, {
             name: 'Female',
-            data: females
+            data: females,
+            color: '#FD3F49'
         }]
-    });
-
-
-    // var chart_3 = new Highcharts.chart('chart_3', {
-    //
-    //     title: {
-    //         text: 'Solar Employment Growth by Sector, 2010-2016'
-    //     },
-    //
-    //     subtitle: {
-    //         text: 'Source: thesolarfoundation.com'
-    //     },
-    //
-    //     yAxis: {
-    //         title: {
-    //             text: 'Number of Employees'
-    //         }
-    //     },
-    //     legend: {
-    //         layout: 'vertical',
-    //         align: 'right',
-    //         verticalAlign: 'middle'
-    //     },
-    //
-    //     plotOptions: {
-    //         series: {
-    //             label: {
-    //                 connectorAllowed: false
-    //             },
-    //             pointStart: 2010
-    //         }
-    //     },
-    //
-    //     series: [{
-    //         name: 'Installation',
-    //         data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-    //     }, {
-    //         name: 'Manufacturing',
-    //         data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-    //     }, {
-    //         name: 'Sales & Distribution',
-    //         data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-    //     }, {
-    //         name: 'Project Development',
-    //         data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-    //     }, {
-    //         name: 'Other',
-    //         data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-    //     }],
-    //
-    //
-    // });
-
+    })
 })

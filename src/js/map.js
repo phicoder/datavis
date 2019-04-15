@@ -3,56 +3,48 @@ barrio_global = 'el Raval'
 gender_global = "all"
 
 $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/barris_geo.json', function (geojson) {
-    
+
 
     var data = []
     $.each(geojson.features, function (index, feature) {
         data.push({
             "N_Barri": feature.properties['N_Barri'],
             value: feature.properties['Homes'] + feature.properties['Dones']
-        });
-    });
+        })
+    })
     var history_color = null
     var history_disctrict = null
 
     // Initiate the chart
     Highcharts.mapChart('map', {
-
         chart: {
             map: geojson
         },
-
         title: {
             text: 'Districts and Population'
         },
-
         subtitle: {
             text: 'Choose one to see detailed information on the right'
         },
-
         colorAxis: {
-            tickPixelInterval: 100
+            tickPixelInterval: 100,
+            // type: 'logarithmic',
+            minColor: '#fff0b6',
+            maxColor: '#ff7640'
         },
-
         plotOptions: {
             series: {
-                marker:{
-                    states:{
-                        select:{
-                            fillColor:'#66ff00'
+                marker: {
+                    states: {
+                        select: {
+                            fillColor: '#66ff00'
                         }
                     }
                 },
                 point: {
                     events: {
-                        click: function () {
-
+                        click() {
                             this.setState("select")
-                            this.update({
-                                marker:{
-                                    fillColor:'#66ff00',
-                                }
-                            })
 
                             let barrio = this.N_Barri
 
@@ -60,9 +52,13 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             barrio_global = barrio
                             //patch until db is all unified to Male & Female
                             //then can be removed
-                            if (gender_global == "Male") { gender = "Boys"}
-                            else if (gender_global == "Female") {gender = "Girls"}
-                            else { gender = "all" }
+                            if (gender_global == "Male") {
+                                gender = "Boys"
+                            } else if (gender_global == "Female") {
+                                gender = "Girls"
+                            } else {
+                                gender = "all"
+                            }
 
                             $("#barrio_name").html(barrio)
 
@@ -77,16 +73,11 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                             var ageDistribution = loadAgeData(barrio)
                             showAgeDistribution(ageDistribution)
                             //load age distribution chart
-
-                            var populationEvolution = loadPopulationData(barrio)
-
-
                         }
                     }
                 }
             }
         },
-
         series: [{
             data: data,
             mapData: geojson,
@@ -94,7 +85,7 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
             name: 'Population',
             states: {
                 hover: {
-                    color: '#a4edba',
+                    color: '#777',
                     tooltip: {
                         enabled: false
                     }
@@ -105,23 +96,20 @@ $.getJSON('https://raw.githubusercontent.com/martgnz/bcn-geodata/master/barris/b
                 format: '{point.N_Barri}'
             }
         }]
+    })
+})
 
-    });
 
-});
-
-function loadBirthsData(barrio, gender="all"){
-
+function loadBirthsData(barrio, gender = "all") {
     var births = db.getCollection('births')
-    if (gender == "all") {
-        var res = births.find({ "neighborhood_name": barrio  })
+    if (gender === "all") {
+        var res = births.find({"neighborhood_name": barrio})
     } else {
-        var res = births.find({ "neighborhood_name": barrio, "gender": gender  })
+        var res = births.find({"neighborhood_name": barrio, "gender": gender})
     }
-
     dict = {}
     n = res.length
-    for (i = 0; i<n; i++) {
+    for (i = 0; i < n; i++) {
         year = res[i].year
         num = res[i].number
         if (year in dict) dict[year] += num
@@ -132,18 +120,17 @@ function loadBirthsData(barrio, gender="all"){
 
 }
 
-function loadDeathsData(barrio, gender="all"){
-
+function loadDeathsData(barrio, gender = "all") {
     var deaths = db.getCollection('deaths')
     if (gender == "all") {
-        var res = deaths.find({ "neighborhood_name": barrio  })
+        var res = deaths.find({"neighborhood_name": barrio})
     } else {
-        var res = deaths.find({ "neighborhood_name": barrio, "gender": gender  })
+        var res = deaths.find({"neighborhood_name": barrio, "gender": gender})
     }
 
     dict = {}
     n = res.length
-    for (i = 0; i<n; i++) {
+    for (i = 0; i < n; i++) {
         year = res[i].year
         num = res[i].number
         if (year in dict) dict[year] += num
@@ -154,27 +141,24 @@ function loadDeathsData(barrio, gender="all"){
 
 }
 
-function loadMigrationData(barrio, gender="all"){
-
+function loadMigrationData(barrio, gender = "all") {
     var migration = db.getCollection('immigrants_emigrants')
-    if ( gender == "all") {
-        var res = migration.find({ "neighborhood_name": barrio })
+    if (gender == "all") {
+        var res = migration.find({"neighborhood_name": barrio})
     } else {
-        var res = migration.find({ "neighborhood_name": barrio, "gender": gender })
+        var res = migration.find({"neighborhood_name": barrio, "gender": gender})
     }
-
-
+    
     dict = {}
     n = res.length
-    for (i = 0; i<n; i++) {
+    for (i = 0; i < n; i++) {
         year = res[i].year
         im = res[i].immigrants
         em = res[i].emigrants
         if (year in dict) {
             dict[year].immigrants += im
             dict[year].emigrants += em
-        }
-        else dict[year] = { immigrants: im, emigrants: em}
+        } else dict[year] = {immigrants: im, emigrants: em}
     }
 
     return dict
@@ -182,20 +166,19 @@ function loadMigrationData(barrio, gender="all"){
 }
 
 function loadAgeData(barrio) {
-
     var population = db.getCollection('population')
-    var res = population.find({ "neighborhood_name": barrio })
+    var res = population.find({"neighborhood_name": barrio})
 
     dict = {}
     n = res.length
-    for (i = 0; i<n; i++) {
+    for (i = 0; i < n; i++) {
 
         gender = res[i].gender
         age = res[i].age
         number = res[i].number
         year = res[i].year
 
-        if (year != 2017) continue
+        if (year !== 2017) continue
 
         if (age in dict) {
             if (gender in dict[age]) {
@@ -203,8 +186,7 @@ function loadAgeData(barrio) {
             } else {
                 dict[age][gender] = number
             }
-        }
-        else {
+        } else {
             dict[age] = {}
             dict[age][gender] = number
         }
